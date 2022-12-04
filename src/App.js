@@ -8,10 +8,15 @@ import Footer from "./components/views/Footer/Footer"
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchTables } from "./redux/tablesRedux";
+import { fetchStatusOptions } from "./redux/statusRedux";
 
 const App = () => {
   const dispatch = useDispatch();
-	useEffect(() => dispatch(fetchTables()), [dispatch]);
+
+	useEffect(() => {
+    dispatch(fetchTables());
+    dispatch(fetchStatusOptions());
+  }, [dispatch]);
 
   return (
     <main>
