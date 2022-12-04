@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 const TableForm = props => {
   const statusOptions = useSelector(state => getStatusOptions(state));
 
+  const MAX_PEOPLE_AMOUNT = 10;
+
   const [status, setStatus] = useState(props.status);
   const [peopleAmount, setPeopleAmount] = useState(props.peopleAmount);
   const [maxPeopleAmount, setMaxPeopleAmount] = useState(props.maxPeopleAmount);
@@ -21,7 +23,20 @@ const TableForm = props => {
     const newStatus = e.target.value;
     setStatus(newStatus);
     if (newStatus === "Cleaning" || newStatus === "Free") {
-      setPeopleAmount("0");
+      setPeopleAmount(0);
+      setBill(0);
+    } else if (newStatus === "Reserved") {
+      setBill(0);
+    }
+  };
+
+  const validatePeopleAmount = (value, cb) => {
+    if (value < 0) {
+      cb(0);
+    } else if (value > MAX_PEOPLE_AMOUNT) {
+      cb(MAX_PEOPLE_AMOUNT);
+    } else {
+      cb(value);
     }
   }
 
@@ -47,12 +62,12 @@ const TableForm = props => {
         <div className={styles.label}><b>People:</b></div>
         <Form.Control
           value={ peopleAmount }
-          onChange={e => setPeopleAmount(e.target.value)}
+          onChange={e => validatePeopleAmount(e.target.value, setPeopleAmount)}
           type="text" />
         <div className={styles.propertyText}>/</div>
         <Form.Control
           value={ props.maxPeopleAmount }
-          onChange={e => setMaxPeopleAmount(e.target.value)}
+          onChange={e => validatePeopleAmount(e.target.value, setMaxPeopleAmount)}
           type="text" />
       </div>
 
