@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import styles from './TableRow.module.scss';
+import PropTypes from 'prop-types';
 
 const TableRow = props => {
   return (
@@ -13,6 +14,11 @@ const TableRow = props => {
       </td>
     </tr>
   );
+};
+
+TableRow.propTypes = {
+  id: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired
 };
 
 export default TableRow;

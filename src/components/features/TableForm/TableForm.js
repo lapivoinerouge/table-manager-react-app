@@ -5,6 +5,7 @@ import { getStatusOptions } from "../../../redux/statusRedux";
 import { editTable } from "../../../redux/tablesRedux";
 import styles from "./TableForm.module.scss";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const TableForm = props => {
   const statusOptions = useSelector(state => getStatusOptions(state));
@@ -85,6 +86,14 @@ const TableForm = props => {
       <Button className={styles.button} variant="primary" type="submit">Update</Button>
     </Form>
   );
+};
+
+TableForm.propTypes = {
+  id: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  peopleAmount: PropTypes.string.isRequired,
+  maxPeopleAmount: PropTypes.string.isRequired,
+  bill: PropTypes.string.isRequired
 };
 
 export default TableForm;
